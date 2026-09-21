@@ -1,0 +1,101 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  OWNER
+  STAFF
+}
+
+enum StockStatus {
+  IN_STOCK
+  SOLD_OUT
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(OWNER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("admin_users")
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  isActive    Boolean   @default(true)
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("categories")
+}
+
+model Product {
+  id          String         @id @default(uuid())
+  name        String
+  slug        String         @unique
+  description String
+  price       Decimal        @db.Decimal(10, 2)
+  categoryId  String
+  category    Category       @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  sizes       String[]       @default([])
+  stockStatus StockStatus    @default(IN_STOCK)
+  isFeatured  Boolean        @default(false)
+  isPublished Boolean        @default(true)
+  images      ProductImage[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@map("products")
+}
+
+model ProductImage {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  altText   String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@map("product_images")
+}
+
+model StoreSetting {
+  id                  String   @id @default(uuid())
+  storeName           String   @default("CHI J'S Collection")
+  tagline             String?  @default("Fashion that speaks for you")
+  logo                String?
+  phone               String?
+  whatsappNumber      String?
+  whatsappTemplate    String?
+  email               String?
+  address             String?
+  city                String?
+  state               String?
+  mapsUrl             String?
+  openingHours        Json?
+  deliveryInfo        String?
+  exchangePolicy      String?
+  announcement        String?  @default("Delivery available nationwide • Visit our store in Warri")
+  announcementEnabled Boolean  @default(true)
+  instagram           String?
+  facebook            String?
+  tiktok              String?
+  updatedAt           DateTime @updatedAt
+
+  @@map("store_settings")
+}
