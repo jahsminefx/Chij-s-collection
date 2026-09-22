@@ -9,6 +9,7 @@ import {
   Settings,
   ExternalLink,
   LogOut,
+  Layers,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
 import BrandName from '../common/BrandName';
@@ -30,6 +31,7 @@ export default function AdminMobileHeader() {
     { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
     { to: '/admin/products', label: 'Products', icon: Package },
     { to: '/admin/categories', label: 'Categories', icon: FolderTree },
+    { to: '/admin/hero-slides', label: 'Hero Slideshow', icon: Layers },
     { to: '/admin/settings', label: 'Store Settings', icon: Settings },
   ];
 

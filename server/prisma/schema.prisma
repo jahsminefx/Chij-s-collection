@@ -56,6 +56,7 @@ model Product {
   isFeatured  Boolean        @default(false)
   isPublished Boolean        @default(true)
   images      ProductImage[]
+  heroSlides  HeroSlide[]
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
 
@@ -98,4 +99,19 @@ model StoreSetting {
   updatedAt           DateTime @updatedAt
 
   @@map("store_settings")
+}
+
+model HeroSlide {
+  id         String   @id @default(uuid())
+  title      String?
+  subtitle   String?
+  imageUrl   String
+  sortOrder  Int      @default(0)
+  isActive   Boolean  @default(true)
+  productId  String?
+  product    Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("hero_slides")
 }

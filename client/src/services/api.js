@@ -64,4 +64,14 @@ export const uploadAPI = {
   }),
 };
 
+// Storefront & Admin Hero Slides API
+export const heroSlideAPI = {
+  getPublicSlides: () => api.get('/api/hero-slides'),
+  getAdminSlides: () => api.get('/api/hero-slides/admin'),
+  createSlide: (data) => api.post('/api/hero-slides/admin', data),
+  updateSlide: (id, data) => api.put(`/api/hero-slides/admin/${id}`, data),
+  deleteSlide: (id) => api.delete(`/api/hero-slides/admin/${id}`),
+  reorderSlides: (slides) => api.put('/api/hero-slides/admin/reorder', { slides }),
+};
+
 export default api;

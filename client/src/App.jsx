@@ -26,6 +26,7 @@ import AdminProductsPage from './pages/admin/AdminProductsPage.jsx';
 import AdminProductCreatePage from './pages/admin/AdminProductCreatePage.jsx';
 import AdminProductEditPage from './pages/admin/AdminProductEditPage.jsx';
 import AdminCategoriesPage from './pages/admin/AdminCategoriesPage.jsx';
+import AdminHeroSliderPage from './pages/admin/AdminHeroSliderPage.jsx';
 import AdminSettingsPage from './pages/admin/AdminSettingsPage.jsx';
 
 export default function App() {
@@ -55,6 +56,7 @@ export default function App() {
               <Route path="/admin/products/new" element={<AdminProductCreatePage />} />
               <Route path="/admin/products/:id/edit" element={<AdminProductEditPage />} />
               <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+              <Route path="/admin/hero-slides" element={<AdminHeroSliderPage />} />
               <Route path="/admin/settings" element={<AdminSettingsPage />} />
             </Route>
           </Route>

@@ -9,6 +9,7 @@ import productRoutes from './routes/productRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
 import storeRoutes from './routes/storeRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+import heroSlideRoutes from './routes/heroSlideRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
 dotenv.config();
@@ -56,6 +57,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/store', storeRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/hero-slides', heroSlideRoutes);
 
 // 404 handler for unknown routes
 app.use((req, res) => {

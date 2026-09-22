@@ -94,65 +94,81 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Metrics Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <StatCard
-          label="Total Products"
-          value={loading ? '...' : totalProducts}
-          icon={Package}
-          color="bg-zinc-900"
-          subtitle="Catalog pieces"
-        />
-        <StatCard
-          label="Categories"
-          value={loading ? '...' : totalCategories}
-          icon={FolderTree}
-          color="bg-amber-600"
-          subtitle="Active collections"
-        />
-        <StatCard
-          label="In Stock"
-          value={loading ? '...' : inStockCount}
-          icon={CheckCircle2}
-          color="bg-emerald-600"
-          subtitle="Ready to order"
-        />
-        <StatCard
-          label="Sold Out"
-          value={loading ? '...' : soldOutCount}
-          icon={AlertCircle}
-          color="bg-red-600"
-          subtitle="Requires restocking"
-        />
+      {/* Metrics Row - Horizontal Scroll on Mobile with Custom Scrollbar */}
+      <div>
+        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 custom-scrollbar">
+          <StatCard
+            label="Total Products"
+            value={loading ? '...' : totalProducts}
+            icon={Package}
+            color="bg-zinc-900"
+            subtitle="Catalog inventory pieces"
+            badge="Live"
+            className="w-[250px] sm:w-auto flex-shrink-0 sm:flex-shrink"
+          />
+          <StatCard
+            label="Categories"
+            value={loading ? '...' : totalCategories}
+            icon={FolderTree}
+            color="bg-amber-600"
+            subtitle="Active departments"
+            badge="Departments"
+            className="w-[250px] sm:w-auto flex-shrink-0 sm:flex-shrink"
+          />
+          <StatCard
+            label="In Stock"
+            value={loading ? '...' : inStockCount}
+            icon={CheckCircle2}
+            color="bg-emerald-600"
+            subtitle="Ready to order"
+            badge="Available"
+            className="w-[250px] sm:w-auto flex-shrink-0 sm:flex-shrink"
+          />
+          <StatCard
+            label="Sold Out"
+            value={loading ? '...' : soldOutCount}
+            icon={AlertCircle}
+            color="bg-red-600"
+            subtitle="Requires restocking"
+            badge={soldOutCount > 0 ? "Restock" : "All Good"}
+            className="w-[250px] sm:w-auto flex-shrink-0 sm:flex-shrink"
+          />
+        </div>
       </div>
 
       {/* Recent Products Overview Table */}
       <div className="bg-white rounded-lg border border-zinc-200 shadow-xs overflow-hidden">
-        <div className="flex items-center justify-between p-5 border-b border-zinc-200">
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-zinc-200 gap-2">
           <div>
             <h2 className="font-display text-base font-bold text-zinc-900">
               Recent Products
             </h2>
             <p className="text-xs text-zinc-500">Quick stock and status control</p>
           </div>
-          <Link
-            to="/admin/products"
-            className="text-xs font-semibold text-brand-accent hover:underline flex items-center gap-1"
-          >
-            <span>View All ({totalProducts})</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          <div className="flex items-center gap-3">
+            <span className="sm:hidden text-[10px] font-bold uppercase tracking-wider text-zinc-400 bg-zinc-100 px-2 py-0.5 rounded whitespace-nowrap">
+              Scroll table →
+            </span>
+            <Link
+              to="/admin/products"
+              className="text-xs font-semibold text-brand-accent hover:underline flex items-center gap-1 whitespace-nowrap"
+            >
+              <span>View All ({totalProducts})</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+        {/* Horizontal scrollbar for products table on mobile */}
+        <div className="overflow-x-auto pb-2 custom-scrollbar">
+          <table className="w-full min-w-[620px] text-left text-xs">
             <thead className="bg-zinc-50 text-zinc-500 uppercase tracking-wider text-[10px] border-b border-zinc-200">
               <tr>
-                <th className="py-3.5 px-4 font-semibold">Product</th>
-                <th className="py-3.5 px-4 font-semibold">Category</th>
-                <th className="py-3.5 px-4 font-semibold">Price</th>
-                <th className="py-3.5 px-4 font-semibold">Stock Toggle</th>
-                <th className="py-3.5 px-4 font-semibold text-right">Actions</th>
+                <th className="py-3.5 px-4 font-semibold min-w-[220px]">Product</th>
+                <th className="py-3.5 px-4 font-semibold min-w-[130px]">Category</th>
+                <th className="py-3.5 px-4 font-semibold min-w-[100px]">Price</th>
+                <th className="py-3.5 px-4 font-semibold min-w-[120px]">Stock Toggle</th>
+                <th className="py-3.5 px-4 font-semibold text-right min-w-[90px]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-200">
