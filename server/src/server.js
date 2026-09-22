@@ -17,9 +17,20 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  CLIENT_URL,
+].filter(Boolean);
+
 // Middleware
 app.use(cors({
-  origin: CLIENT_URL,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Blocked by CORS'));
+  },
   credentials: true,
 }));
 app.use(cookieParser());
@@ -58,7 +69,7 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`🚀 CHI J'S Collection Server running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 CHI J'S Collection Server running on http://127.0.0.1:${PORT}`);
   console.log(`📡 Accepting client requests from: ${CLIENT_URL}`);
 });
