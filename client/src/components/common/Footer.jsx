@@ -154,15 +154,6 @@ export default function Footer() {
                   </a>
                 </div>
               )}
-
-              <div className="pt-2">
-                <Link
-                  to="/admin/login"
-                  className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
-                >
-                  Store Owner Portal
-                </Link>
-              </div>
             </div>
           </div>
         </div>
